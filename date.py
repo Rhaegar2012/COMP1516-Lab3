@@ -1,4 +1,4 @@
-# Author : Jose Tellez
+# Author : Jose Tellez and Gabriel Lebre
 
 def main():
     """
@@ -54,6 +54,8 @@ def get_month_code(month):
                   7: 0, 8: 3, 9: 6,
                   10: 1, 11: 4, 12: 6}
     return month_code[month]
+
+
 def calculate_year_offset(year):
     """
     Calculates year offset based on the year passed
