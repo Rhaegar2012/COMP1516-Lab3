@@ -27,8 +27,9 @@ def get_day_of_the_week(month, day, year):
     month_code = get_month_code(month)
 
 
-    if is_leap_year(year) and month == 1 or month == 2:
-            month_code += 6
+    if is_leap_year(year) and (month == 1 or month == 2):
+        month_code += 6
+
     year_offset = calculate_year_offset(year)
 
     addition = (number_of_twelves_in_last_digits +
@@ -45,9 +46,15 @@ def get_day_of_the_week(month, day, year):
 
 
 def get_day_code(modulo):
-    day=""
+    """
+    Takes the modulo as an int and returns a day of the wek
+    :param modulo: as int
+    :return: day of week as string
+    """
+    day = None
+
     if modulo == 0:
-       day = "Saturday"
+        day = "Saturday"
     elif modulo == 1:
         day = "Sunday"
     elif modulo == 2:
@@ -60,19 +67,46 @@ def get_day_code(modulo):
         day = "Thursday"
     elif modulo == 6:
         day = "Friday"
+    else:
+        print("bad day")
     return day
+
+
 def get_month_code(month):
     """
-    Reads month , as an int , and then searches a dictionary to find the appropriate code
+    Reads month , as an int , and then evaluates conditional to find the appropriate code
     Key: Month , Value:Code
     :param month: Mont of the year , in number
     :return: month code
     """
-    month_code = {1: 1, 2: 4, 3: 4,
-                  4: 0, 5: 2, 6: 5,
-                  7: 0, 8: 3, 9: 6,
-                  10: 1, 11: 4, 12: 6}
-    return month_code[month]
+    month_code = None
+    if month == 1:
+        month_code = 1
+    elif month == 2:
+        month_code = 4
+    elif month == 3:
+        month_code = 4
+    elif month == 4:
+        month_code = 0
+    elif month == 5:
+        month_code = 2
+    elif month == 6:
+        month_code = 6
+    elif month == 7:
+        month_code = 0
+    elif month == 8:
+        month_code = 3
+    elif month == 9:
+        month_code = 6
+    elif month == 10:
+        month_code = 1
+    elif month == 11:
+        month_code = 4
+    elif month == 12:
+        month_code=6
+    else:
+        print("oops")
+    return month_code
 
 
 def calculate_year_offset(year):
@@ -94,6 +128,8 @@ def calculate_year_offset(year):
         return 6
     elif first_two_digits == 21:
         return 4
+    else:
+
 
 
 def is_leap_year(year):
@@ -115,5 +151,3 @@ def is_leap_year(year):
 
 if __name__ == "__main__":
     main()
-
-
