@@ -25,27 +25,46 @@ def get_day_of_the_week(month, day, year):
     remainder = last_two_digits_of_year - (number_of_twelves_in_last_digits * 12)
     number_of_fours_in_remainder = remainder // 4
     month_code = get_month_code(month)
-    if is_leap_year(year):
-        if month == 1 or month == 2:
+
+
+    if is_leap_year(year) and month == 1 or month == 2:
             month_code += 6
     year_offset = calculate_year_offset(year)
+
     addition = (number_of_twelves_in_last_digits +
                 remainder +
                 number_of_fours_in_remainder +
                 day +
                 month_code +
                 year_offset)
+
     modulo_of_addition = addition % 7
-    day_code = {0: "Saturday", 1: "Sunday", 2: "Monday",
-                3: "Tuesday", 4: "Wednesday", 5: "Thursday",
-                6: "Friday"}
+    day_code = get_day_code(modulo_of_addition)
 
-    return day_code[modulo_of_addition]
+    return day_code
 
 
+def get_day_code(modulo):
+    day=""
+    if modulo == 0:
+       day = "Saturday"
+    elif modulo == 1:
+        day = "Sunday"
+    elif modulo == 2:
+        day = "Monday"
+    elif modulo == 3:
+        day = "Tuesday"
+    elif modulo == 4:
+        day = "Wednesday"
+    elif modulo == 5:
+        day = "Thursday"
+    elif modulo == 6:
+        day = "Friday"
+    return day
 def get_month_code(month):
     """
-
+    Reads month , as an int , and then searches a dictionary to find the appropriate code
+    Key: Month , Value:Code
     :param month: Mont of the year , in number
     :return: month code
     """
@@ -65,30 +84,30 @@ def calculate_year_offset(year):
     first_two_digits = year//100
     if first_two_digits == 16:
         return 6
-    if first_two_digits == 17:
+    elif first_two_digits == 17:
         return 4
-    if first_two_digits == 18:
+    elif first_two_digits == 18:
         return 2
-    if first_two_digits == 19:
+    elif first_two_digits == 19:
         return 0
-    if first_two_digits == 20:
+    elif first_two_digits == 20:
         return 6
-    if first_two_digits == 21:
+    elif first_two_digits == 21:
         return 4
 
 
 def is_leap_year(year):
     """
-
+    Returns true if a year is a leap year
     :param year: year in numbers
     :return: true if the year is a leap year , false if is not a leap year
     """
     if year % 4 == 0:
         if year % 400 == 0:
             return True
-        if year % 100 != 0:
+        elif year % 100 != 0:
             return True
-        if year % 100 == 0 and year % 400 != 0:
+        elif year % 100 == 0 and year % 400 != 0:
             return False
     else:
         return False
